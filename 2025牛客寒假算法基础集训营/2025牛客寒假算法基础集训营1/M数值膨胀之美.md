@@ -1,8 +1,10 @@
 # 数值膨胀之美
 
-**STL**、**排序**、**枚举**
-
 ![image-20250121195305208](https://gitee.com/chen-houchao/images/raw/master/202501211953326.png)
+
+## 代码
+
+**STL**、**排序**、**枚举**
 
 ```cpp
 #include <bits/stdc++.h>
