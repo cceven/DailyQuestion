@@ -70,6 +70,50 @@ In the third test case, it is impossible for the sum of Alice and Bob's selected
 ## 代码
 
 ```cpp
+#include <bits/stdc++.h>
+#define endl "\n"
+using namespace std;
+typedef long long ll;
 
+void solve() {
+  int n, k;
+  cin >> n >> k;
+  vector<int> a(n);
+  multiset<int> nums;
+  for (int i = 0; i < n; i++) {
+    cin >> a[i];
+    nums.insert(a[i]);
+  }
+  sort(a.begin(), a.end());
+
+  int ans = 0;
+  for (int i = 0; i < n; i++) {
+    if (nums.empty() || a[i] >= k) break;
+
+    int comple_num = k - a[i];
+    if (nums.find(a[i]) != nums.end() && nums.find(comple_num) != nums.end()) {
+      auto pos1 = nums.find(a[i]);
+      nums.erase(pos1);
+      if (nums.find(comple_num) == nums.end()) {
+        nums.insert(a[i]);
+        continue;
+      }
+      auto pos2 = nums.find(comple_num);
+      nums.erase(pos2);
+      ans++;
+    }
+  }
+  cout << ans << endl;
+}
+
+int main() {
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  int t;
+  cin >> t;
+  while (t--) solve();
+  return 0;
+}
 ```
 
+- `multiset`的使用，类似于`set`，可以用于存储元素是否存在，但是允许重复的元素
