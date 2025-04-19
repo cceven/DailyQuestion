@@ -124,6 +124,7 @@ void solve() {
           greater<tuple<int, int, int>>>
           pq;
 
+  vector<int> is_visit(n + 1, false);  // 标记是否已经访问过
   vector<pair<int, int >> dist(n + 1, { INT_MAX, INT_MAX });
   dist[s] = { 0, 0 };
   pq.push({ 0, 0, s });
@@ -131,15 +132,15 @@ void solve() {
     auto [cur_cost, cur_hot, u] = pq.top();
     pq.pop();
 
-    // 如果当前取出的状态比已经记录的状态要差，则跳过
-    if (make_pair(cur_cost, cur_hot) > dist[u]) continue;
+    // 已经访问过了就直接跳过
+    if (is_visit[u]) continue;
+    is_visit[u] = true;
 
     for (auto [v, cost] : g[u]) {
       int new_cost = cur_cost + cost;
       int new_hot  = cur_hot;
       if (v != s && v != t) new_hot = max(cur_hot, hot_num[v]);
 
-      // 如果当前状态更优
       if (make_pair(new_cost, new_hot) < dist[v]) {
         dist[v] = { new_cost, new_hot };
         pq.push({ new_cost, new_hot, v });
